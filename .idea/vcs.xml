@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$/PubliUco" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/PubliucoApi" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/PubliucoCrossCutting" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/PubliucoDTO" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/PubliucoEntity" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/PubliucoRepository" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/PubliucoService" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/UcoCrossCutting" vcs="Git" />
+  </component>
+</project>

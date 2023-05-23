@@ -1,6 +1,9 @@
 package co.edu.uco.publiuco.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,5 +23,7 @@ public class CiudadEntity {
     @JoinColumn(name = "departamento") //llave foranea de la tabla Departamento
     private DepartamentoEntity departamento;
     // @Column(name = "nombre") // Se puede obviar si es lo mismo como esta el atributo y el tipo de variable
+    //@Pattern(regexp = "^[a-zA-Z]$", message = "Solo se aceptan letras y espacios")
+    //@NotNull(message = "No se aceptan nombres vacios")
     private String nombre;
 }

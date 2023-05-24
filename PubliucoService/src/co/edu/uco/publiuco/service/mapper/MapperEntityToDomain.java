@@ -2,12 +2,11 @@ package co.edu.uco.publiuco.service.mapper;
 
 import org.modelmapper.ModelMapper;
 
-public class MapperToDomain<T,D> {
+public class MapperEntityToDomain<E,D> {
 
     private static final ModelMapper mapper = new ModelMapper();
 
-    public D mapToDomain(T dto, Class<D> clase){
-        return mapper.map(dto, clase);
+    public D mapToDomain(E entity, Class<D> clase){
+        return mapper.map(entity,clase);
     }
-
 }

@@ -7,11 +7,18 @@ import co.edu.uco.publiuco.repository.ciudad.CiudadRepositoryCustom;
 import co.edu.uco.publiuco.crosscutting.helper.ObjectHelper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
+import org.hibernate.internal.util.StringHelper;
+import org.springframework.util.StringUtils;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CiudadRepositoryImpl implements CiudadRepositoryCustom {
 
@@ -20,55 +27,32 @@ public class CiudadRepositoryImpl implements CiudadRepositoryCustom {
 
     @Override
     public List<CiudadEntity> findCustom(CiudadEntity ciudadEntity) {
-        var sqlBuilder = new StringBuilder();
-        final var parameters = new ArrayList<Object>();
-
-        createSelectFrom(sqlBuilder);
-        createWhere(sqlBuilder, ciudadEntity, parameters);
-        createOrderBy(sqlBuilder);
-
-        return null;
-    }
-
-    private void createSelectFrom(final StringBuilder sqlBuilder){
-        sqlBuilder.append("SELECT       c.codigo as codciudad,");
-        sqlBuilder.append("             c.nombre as nomciudad,");
-        sqlBuilder.append("             d.codigo as coddepartamento,");
-        sqlBuilder.append("             d.nombre as nomdepartamento,");
-        sqlBuilder.append("FROM         \"Ciudad\" c ");
-        sqlBuilder.append("INNER JOIN   \"Departamento\" d ");
-        sqlBuilder.append("ON           c.codigo = d.codigo");
-    }
-
-    private void createWhere(final StringBuilder sqlBuilder, final CiudadEntity ciudad, final List<Object> parameters){
-        if(!ObjectHelper.isNull(ciudad)){
-            var setWhere = true;
-
-            if (!UUIDHelper.isDefaultUUID(ciudad.getCodigo())){
-                sqlBuilder.append("WHERE c.codigo = ? ");
-                setWhere = false;
-                parameters.add(ciudad.getCodigo().toString());
-            }
-
-            if (!UUIDHelper.isDefaultUUID(ciudad.getDepartamento().getCodigo())){
-                sqlBuilder.append(setWhere ? "WHERE ": "AND ").append("d.codigo = ? ");
-                parameters.add(ciudad.getDepartamento().getCodigo().toString());
-            }
-        }
-    }
-
-    private void createOrderBy(final StringBuilder sqlBuilder){
-        sqlBuilder.append("ORDER BY c.nombre ASC");
-    }
-
-    private void setParameterValues(PreparedStatement preparedStatement, final List<Object> parameters){
-        CatalogoMensajes catalogoMensajes;
         try {
-            for(int index = 0; index < parameters.size(); index++){
-                preparedStatement.setObject(index + 1, parameters.get(index));
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<CiudadEntity> query = criteriaBuilder.createQuery(CiudadEntity.class);
+            Root<CiudadEntity> ciudadRoot = query.from(CiudadEntity.class);
+            List<Predicate> predicates = new ArrayList<>();
+
+            if (!Objects.isNull(ciudadEntity)){
+                if (!UUIDHelper.isDefaultUUID(ciudadEntity.getCodigo())){
+                    predicates.add(criteriaBuilder.equal(ciudadRoot.get("codigo"),ciudadEntity.getCodigo()));
+                }
+                if (StringHelper.isNotEmpty(ciudadEntity.getNombre())){
+                    predicates.add(criteriaBuilder.equal(ciudadRoot.get("nombre"),ciudadEntity.getNombre()));
+                }
+                if (!UUIDHelper.isDefaultUUID(ciudadEntity.getDepartamento().getCodigo())){
+                    predicates.add(criteriaBuilder.equal(ciudadRoot.get("departamento"),ciudadEntity.getDepartamento()));
+                }
             }
-        } catch (SQLException exception){
-            System.out.println(exception.getMessage());//catalogoMensajes.obtenerMensaje("saludo")
+
+            query.select(ciudadRoot).where(criteriaBuilder.and(predicates.toArray(new Predicate[0])));
+
+            return entityManager.createQuery(query).getResultList();
+
+        }catch (Exception e){
+            //TODO: Hacer las otras excepciones (SQL por ejemplo)}
+            System.out.println(e.getMessage());
         }
+        return null;
     }
 }

@@ -1,10 +1,9 @@
 package co.edu.uco.publiuco.service.facade.ciudad.implementation;
 
 import co.edu.uco.publiuco.dto.CiudadDTO;
-import co.edu.uco.publiuco.entity.CiudadEntity;
 import co.edu.uco.publiuco.service.domain.CiudadDomain;
 import co.edu.uco.publiuco.service.facade.ciudad.RegistrarCiudadFacade;
-import co.edu.uco.publiuco.service.mapper.MapperToDomain;
+import co.edu.uco.publiuco.service.mapper.MapperDTOToDomain;
 import co.edu.uco.publiuco.service.usecase.ciudad.RegistrarCiudad;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +18,7 @@ public class RegistrarCiudadFacadeImpl implements RegistrarCiudadFacade {
 
     @Override
     public void execute(CiudadDTO dto) {
-        MapperToDomain<CiudadDTO, CiudadDomain> map = new MapperToDomain<>();
+        MapperDTOToDomain<CiudadDTO, CiudadDomain> map = new MapperDTOToDomain<>();
         // TODO: Aqui es donde sirve el assembler pasra llevar de DTO a Domain
         CiudadDomain domain = map.mapToDomain(dto, CiudadDomain.class);
         useCase.execute(domain);

@@ -28,4 +28,7 @@ public class StringHelper {
         return Objects.equals(value, EMPTY);
     }
 
+    public static final boolean isOnlyWordsAndSpace(String value) {
+        return value.matches("[a-zA-Z ]+");
+    }
 }

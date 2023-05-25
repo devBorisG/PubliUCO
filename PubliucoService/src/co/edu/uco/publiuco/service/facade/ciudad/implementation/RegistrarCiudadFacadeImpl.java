@@ -18,9 +18,8 @@ public class RegistrarCiudadFacadeImpl implements RegistrarCiudadFacade {
 
     @Override
     public void execute(CiudadDTO dto) {
-        MapperDTOToDomain<CiudadDTO, CiudadDomain> map = new MapperDTOToDomain<>();
-        // TODO: Aqui es donde sirve el assembler pasra llevar de DTO a Domain
-        CiudadDomain domain = map.mapToDomain(dto, CiudadDomain.class);
+        MapperDTOToDomain<CiudadDTO, CiudadDomain> mapperDTOToDomain = new MapperDTOToDomain<>();
+        CiudadDomain domain = mapperDTOToDomain.mapToDomain(dto, CiudadDomain.class);
         useCase.execute(domain);
     }
 }

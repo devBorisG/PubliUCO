@@ -1,10 +1,8 @@
 package co.edu.uco.publiuco.repository.ciudad.implementation;
 
 import co.edu.uco.publiuco.crosscutting.helper.UUIDHelper;
-import co.edu.uco.publiuco.crosscutting.messages.CatalogoMensajes;
 import co.edu.uco.publiuco.entity.CiudadEntity;
 import co.edu.uco.publiuco.repository.ciudad.CiudadRepositoryCustom;
-import co.edu.uco.publiuco.crosscutting.helper.ObjectHelper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -12,10 +10,7 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import org.hibernate.internal.util.StringHelper;
-import org.springframework.util.StringUtils;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

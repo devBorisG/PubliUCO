@@ -5,10 +5,7 @@ import co.edu.uco.publiuco.service.facade.ciudad.RegistrarCiudadFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("publiuco/api/v1/ciudad")
@@ -16,6 +13,11 @@ public class RegistrarCiudadController {
 
     @Autowired
     private RegistrarCiudadFacade facade;
+
+    @GetMapping("/dummy")
+    public String hola(){
+        return "hola";
+    }
 
     @PostMapping
     public ResponseEntity<String> execute(@RequestBody CiudadDTO ciudad){

@@ -23,7 +23,6 @@ public class CiudadEntity {
     @JoinColumn(name = "departamento") //llave foranea de la tabla Departamento
     private DepartamentoEntity departamento;
     // @Column(name = "nombre") // Se puede obviar si es lo mismo como esta el atributo y el tipo de variable
-    //@Pattern(regexp = "^[a-zA-Z]$", message = "Solo se aceptan letras y espacios")
-    //@NotNull(message = "No se aceptan nombres vacios")
     private String nombre;
+
 }

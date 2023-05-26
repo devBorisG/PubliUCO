@@ -29,7 +29,7 @@ public class RegistrarCiudadImpl implements RegistrarCiudad {
             CiudadEntity entity = mapperToEntity.mapToEntity(domain, CiudadEntity.class);
             repository.save(entity);
         }catch (ServiceCustomException exception){
-            throw exception;
+            throw ServiceCustomException.createUserException(exception.getUserMessage());
         }catch (PersistenceException exception){
             throw ServiceCustomException.wrapException(exception.getMessage(),ServiceCustomException.createUserException("a"));
         }

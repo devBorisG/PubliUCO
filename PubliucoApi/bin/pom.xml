@@ -27,7 +27,7 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>co.edu.uco.publiuco</groupId>
 			<artifactId>PubliucoCrossCutting</artifactId>

@@ -1,5 +1,7 @@
 package co.edu.uco.publiuco.service.specification;
 
+import java.util.List;
+
 public interface ISpecification<T> {
-    boolean isSatisfied(T domain);
+    void isSatisfied(T data);
 }

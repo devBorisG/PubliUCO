@@ -3,7 +3,8 @@ package co.edu.uco.publiuco.service.specification.ciudad.implementation;
 import co.edu.uco.publiuco.crosscutting.exceptions.service.ServiceCustomException;
 import co.edu.uco.publiuco.crosscutting.helper.ObjectHelper;
 import co.edu.uco.publiuco.crosscutting.helper.StringHelper;
-import co.edu.uco.publiuco.crosscutting.messages.CatalogoMensajesImpl;
+import co.edu.uco.publiuco.crosscutting.messages.customization.CatalogoMensajes;
+import co.edu.uco.publiuco.crosscutting.messages.customization.implementation.CatalogoMensajesImpl;
 import co.edu.uco.publiuco.service.domain.CiudadDomain;
 import co.edu.uco.publiuco.service.specification.ciudad.CiudadSpecification;
 import co.edu.uco.publiuco.service.usecase.ciudad.ListarCiudades;
@@ -19,32 +20,19 @@ public class CiudadSpecificationImpl implements CiudadSpecification {
     @Autowired
     private ListarCiudades listarCiudades;
 
+    //TODO: CREAR UNA INTERFAZ QUE IMPLEMENTE EL METODO
+    protected CatalogoMensajes catalogoMensajes;
+
     @Override
-    public boolean isSatisfied(final CiudadDomain domain) {
-        CatalogoMensajesImpl mensaje = new CatalogoMensajesImpl();
-        boolean satisfied = true;
-        validateDB(domain, mensaje);
-        validateLettersAndSpaces(domain,mensaje);
-        validateDepartamentoNull(domain, mensaje);
-        return satisfied;
-    }
-
-    private void validateDB(final CiudadDomain domain, CatalogoMensajesImpl mensaje) {
+    public void isSatisfied(final CiudadDomain domain) {
         if (!listarCiudades.execute(Optional.of(domain)).isEmpty()) {
-            throw ServiceCustomException.createUserException(mensaje.obtenerMensaje("specification.ciudad.database"));
+            throw ServiceCustomException.createUserException(catalogoMensajes.getMessage("specification.ciudad.database"));
         }
-    }
-
-    private void validateLettersAndSpaces(final CiudadDomain domain,  CatalogoMensajesImpl mensaje){
-        if(!StringHelper.isOnlyWordsAndSpace(domain.getNombre())){
-            throw ServiceCustomException.createUserException(mensaje.obtenerMensaje("specification.ciudad.name"));
+        if (!StringHelper.isOnlyWordsAndSpace(domain.getNombre())) {
+            throw ServiceCustomException.createUserException(catalogoMensajes.getMessage("specification.ciudad.name"));
         }
-    }
-
-    private void validateDepartamentoNull(final CiudadDomain domain,  CatalogoMensajesImpl mensaje){
-        if(!ObjectHelper.isNull(domain.getDepartamento())){
-            throw ServiceCustomException.createUserException(mensaje.obtenerMensaje("specification.ciudad.departamentonull"));
+        if (!ObjectHelper.isNull(domain.getDepartamento())) {
+            throw ServiceCustomException.createUserException(catalogoMensajes.getMessage("specification.ciudad.departamentonull"));
         }
-
     }
 }

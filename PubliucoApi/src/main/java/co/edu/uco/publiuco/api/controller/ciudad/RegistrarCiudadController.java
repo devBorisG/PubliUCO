@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("publiuco/api/v1/ciudad")
+@RequestMapping("/publiuco/api/v1/ciudad")
 public class RegistrarCiudadController {
 
     @Autowired

@@ -5,7 +5,6 @@ import co.edu.uco.publiuco.service.specification.departamento.DepartamentoSpecif
 
 public class DepartamentoSpecificationImpl implements DepartamentoSpecification {
     @Override
-    public boolean isSatisfied(DepartamentoDomain domain) {
-        return false;
+    public void isSatisfied(DepartamentoDomain domain) {
     }
 }

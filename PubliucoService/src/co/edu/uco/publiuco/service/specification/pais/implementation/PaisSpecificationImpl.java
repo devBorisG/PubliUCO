@@ -5,7 +5,6 @@ import co.edu.uco.publiuco.service.specification.pais.PaisSpecification;
 
 public class PaisSpecificationImpl implements PaisSpecification {
     @Override
-    public boolean isSatisfied(PaisDomain domain) {
-        return false;
+    public void isSatisfied(PaisDomain domain) {
     }
 }
